@@ -1,4 +1,4 @@
-# README
+# SCRABBLESET SPECIFICATIONS
 
 ## Documentation
  - Are there clear and correct Javadoc comments for the class, method, and/or attributes? Note that both public and private methods and attributes should have Javadoc comments.
@@ -58,29 +58,77 @@ Are loop termination conditions guaranteed to return true when the program runs?
 - Does the code provide reasonable results for a wide range of test cases, especially including any potential edge cases?
 
 
-### The ScrabbleSet class
-Should have attributes that allow the object to store the following information. Do not initialize any of these attributes when you declare them. That will be done in a constructor.
+### Attributes
+Allow the object to store the following information:
 
- - A list of Tile objects for the letters and the blank tile. The blank tile should be represented by a space, ' '.
- 
- **Contains an ArrayList object named "tiles" that stores all 27 types of tiles.**
+ - A list of Tile objects for the letters and the blank tile--it should be represented by a space, ' '.
  - A list that provides a count of each letter in the Scrabble set.
+
+ **Contains an ArrayList object named "tiles" that stores all 27 types of tiles. However, there is not a separate list for objects and count, but rather one list with TileInSet object which are constructed to have both the tile type and count contained within it. This format means that there doesn't need to be two array variables to store the different types of info, making the program more efficient and less complicated. Therefore, tiles still checks off both specifications.**
 
 Use arrays or ArrayList objects for each attribute; do not use any other kind of data structures.
 
-### You will need two constructors.
+**The code correctly uses an ArrayList object.**
+
+### Constructors
 
  - One constructor should take one parameter, the language for the Scrabble set. At this time, you only need to implement building a Scrabble set for standard English. You can find the count of each tile in Wikipedia, among other places. (This Scrabble set has 100 tiles.)
- - One constructor should take no parameters and build a Scrabble set with each letter having a random value for the count, subject to the following conditions.
- - The total number of tiles must be exactly 100.
- - Each letter (and the blank) must have at least one tile associated with it.
- - The points assigned to each letter should not be modified.
- - You can add other reasonable rules, such as a maximum count that no letter can exceed.
 
-### You will need at least the following two methods
+ **The first defined ScrabbleSet constructor, scrabbleSet(language) takes a String "language" parameter, and builds an English ScrabbleSet accordingly. However, it doesn't specify that the set it builds is specifically for English nor does it provide an alternative output if the parameter is a language either than English.**
+
+ A 1 9
+B 3 2
+C 3 2
+D 2 4
+E 1 12
+
+A 1 9
+B 3 2
+C 3 2
+D 2 4
+E 1 12
+
+**For example, the above lines of code are the results of printing out a Spanish set first, and then an English set. Both are the same, even though that is incorrect; furthermore, there is no error message returned for the Spanish set (even though that should be done). However, the constructor does have code that prints out an error message if the number of total tiles does not add up to 100. Because no error message was printed out, the constructor satisfies the 100 total tiles specification.**
+ - One constructor should take no parameters and build a Scrabble set with each letter having a random value for the count, subject to the following conditions.
+    - The total number of tiles must be exactly 100. (1)
+    - Each letter (and the blank) must have at least one tile associated with it. (2)
+    - The points assigned to each letter should not be modified. (3)
+
+**The second constructor, scrabbleSet(), takes no parameters. It does not modify the number of points for each tile, checking off condition 3. When printing out the components of a random ScrabbleSet object, this is an sample output:**
+
+A 1 5
+B 3 2
+C 3 4
+D 2 2
+E 1 4
+F 4 4
+G 2 3
+H 4 2
+I 1 2
+J 8 4
+K 5 5
+L 1 3
+M 3 3
+N 1 2
+O 1 6
+P 3 3
+Q 10 3
+R 1 8
+S 1 8
+T 1 3
+U 1 3
+V 4 1
+W 4 3
+X 8 8
+Y 4 3
+Z 10 5
+' '  0 1
+
+**It prints in the format Tile, Point, Count. For all tile objects in the set, there is at least one tile of each type, as shown in the sample out. The constructor does this by implementing a for loop that loops from i = 0 to i = 72 (not sure what the significance of 72 holds). This satisfies condition 2. To check whether the set has exactly 100 tiles, a for loop is implemented that adds together the total tileCount of each tile object and stores it in a "totalTiles" variable. If totalTiles does not equal 100, an error message will print. Because no error message is printed in the sample output, the total number of tiles adds up to a 100 (verified by adding up all the tileCounts). This satisfies conditions 1. There does not appear to be code that sets a max amount of each type of tile.**
+
+### Methods
 
  - A toString method that provides a well-formatted String representation of the object.
  - A method that takes one String parameter which will contain a word. The method will return the number of points for the word in Scrabble based on the letter counts in the ScrabbleSet object and the point values for each Tile object.
-
-As a first step, just use the letter tiles and ignore the blank tiles.
-If a word is invalid, either because it has non-letter characters or because it has more instances of any single letter than is present for that letter in the Scrabble set, the method should return 0.
+    - As a first step, just use the letter tiles and ignore the blank tiles.
+    - If a word is invalid, either because it has non-letter characters or because it has more instances of any single letter than is present for that letter in the Scrabble set, the method should return 0.

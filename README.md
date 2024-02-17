@@ -62,6 +62,8 @@ Are loop termination conditions guaranteed to return true when the program runs?
 Should have attributes that allow the object to store the following information. Do not initialize any of these attributes when you declare them. That will be done in a constructor.
 
  - A list of Tile objects for the letters and the blank tile. The blank tile should be represented by a space, ' '.
+ 
+ **Contains an ArrayList object named "tiles" that stores all 27 types of tiles.**
  - A list that provides a count of each letter in the Scrabble set.
 
 Use arrays or ArrayList objects for each attribute; do not use any other kind of data structures.
@@ -79,6 +81,6 @@ Use arrays or ArrayList objects for each attribute; do not use any other kind of
 
  - A toString method that provides a well-formatted String representation of the object.
  - A method that takes one String parameter which will contain a word. The method will return the number of points for the word in Scrabble based on the letter counts in the ScrabbleSet object and the point values for each Tile object.
- 
+
 As a first step, just use the letter tiles and ignore the blank tiles.
 If a word is invalid, either because it has non-letter characters or because it has more instances of any single letter than is present for that letter in the Scrabble set, the method should return 0.

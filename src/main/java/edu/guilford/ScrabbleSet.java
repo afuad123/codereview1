@@ -2,11 +2,27 @@ package edu.guilford;
 
 import java.util.ArrayList;
 import java.util.Random;
-
+/**
+ * This is a class definition file for the "ScrabbleSet" class which defines a ScrabbleSet object.
+ * @see Tile
+ * @see TileInSet
+ */
 public class ScrabbleSet {
+    //ATTRIBUTES
+    /**
+     * An ArrayList type attribute of TileInSet objects for the tiles in the set
+     */
     private ArrayList<TileInSet> tiles = new ArrayList<TileInSet>();
+    /**
+     * A Random type attribute for generating random numbers
+     */
     private Random rand = new Random();
 
+    //CONSTRUCTORS
+    /**
+     * Makes a constructor that takes a language as a parameter and defines tiles with values and count accordingly
+     * @param language the language to set the ScrabbleSet to
+     */
     public ScrabbleSet(String language) {
 
         tiles.add(new TileInSet(new Tile('A', 1), 9));
@@ -90,7 +106,11 @@ public class ScrabbleSet {
         }
 
     }
-
+    //METHODS
+    /**
+     * Makes a method that returns a string representation of the ScrabbleSet
+     * @return a string representation of the ScrabbleSet
+     */
     public String toString() {
         String result = "";
         for (TileInSet tile : tiles) {
@@ -98,7 +118,11 @@ public class ScrabbleSet {
         }
         return result;
     }
-
+    /**
+     * Makes a method that takes a word as a parameter and returns the value of the word
+     * @param word the word to get the value of, as a string
+     * @return the value of the word in points
+     */
     public int getWordValue(String word) {
         int wordValue = 0;
         word = word.toUpperCase();
@@ -130,37 +154,74 @@ public class ScrabbleSet {
     }
 
     private class TileInSet {
+        //ATTRIBUTES
+        /**
+         * A Tile type attribute for the tile
+         */
         private Tile tile;
+        /**
+         * An integer attribute for the count of the tile (how many tiles of that type are in the set)
+         */
         private int count;
+        /** 
+         * An integer attribute for the number of tiles of one type of letter used
+         */
         private int used;
 
+        //CONSTRUCTORS
+        /**
+         * Makes a constructor that takes a tile and a count as parameters to create a TileInSet object
+         * @param tile the tile to set the TileInSet to
+         * @param count the count to set the TileInSet to (how many tiles of that type are in the set)
+         */
         public TileInSet(Tile tile, int count) {
             this.tile = tile;
             this.count = count;
             this.used = 0;
         }
 
+        //GETTERS AND SETTERS
+        /**
+         * Makes a getter for the tile attribute
+         * @return the tile
+         */
         public Tile getTile() {
             return tile;
         }
-
+        /**
+         * Makes a setter for the tile attribute
+         * @param tile the tile to set
+         */
         public void setTile(Tile tile) {
             this.tile = tile;
         }
-
+        /**
+         * Makes a getter for the count attribute
+         * @return the count
+         */
         public int getCount() {
             return count;
         }
-
+        /**
+         * Makes a setter for the count attribute
+         * @param count the count to set
+         */
         public void setCount(int count) {
             this.count = count;
         }
 
-
+        /**
+         * Makes a getter for the used attribute
+         * @return the number of used tiles
+         */
+       
         public int getUsed() {
             return used;
         }
-
+        /**
+         * Makes a setter for the used attribute
+         * @param used the number of used tiles to set
+         */
         public void setUsed(int used) {
             this.used = used;
         }

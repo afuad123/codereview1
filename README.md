@@ -129,6 +129,11 @@ Z 10 5
 ### Methods
 
  - A toString method that provides a well-formatted String representation of the object.
+
+ **There is a toString() method present that returns a ScrabbleSet as shown above in the discussion of the constructors. It is returned in the form tile, point value, tile count. While it does return all components of a ScrabbleSet, it does so in an unclear manner. It is hard for another user to tell what "A 1 5" means without a proper understanding of the program. A better toString() method would label each component specifically with "Tile" or "Point Value." This could be achieved by modifying the "result" variable defined in the toString() method to include labels for each item.**
+
  - A method that takes one String parameter which will contain a word. The method will return the number of points for the word in Scrabble based on the letter counts in the ScrabbleSet object and the point values for each Tile object.
     - As a first step, just use the letter tiles and ignore the blank tiles.
     - If a word is invalid, either because it has non-letter characters or because it has more instances of any single letter than is present for that letter in the Scrabble set, the method should return 0.
+
+    ****

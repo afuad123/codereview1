@@ -1,16 +1,11 @@
 # SCRABBLESET SPECIFICATIONS
 
-## Documentation
- - Are there clear and correct Javadoc comments for the class, method, and/or attributes? Note that both public and private methods and attributes should have Javadoc comments.
+
 
 ## Code structure
 - Does the code satisfy all provided specifications?
 
 - Is the code consistently formatted? (Note: For this course, we use the results of the Format Document… command in Visual Studio Code as our correct formatting style.)
-
-- Do all methods have a clear purpose?
-
-- Is there any debugging code still present that should be commented out or otherwise modified so that it does not run in production mode?
 
 - What repeated code is present that could become a single method? (This principle is known as DRY: Don’t repeat yourself.)
 
@@ -136,4 +131,20 @@ Z 10 5
     - As a first step, just use the letter tiles and ignore the blank tiles.
     - If a word is invalid, either because it has non-letter characters or because it has more instances of any single letter than is present for that letter in the Scrabble set, the method should return 0.
 
-    ****
+    **This method is listed as getWordValue() which takes a String "word" parameter. The return value is type int, which is the score of the word based on the ScrabbleSet. A sample output for a few test words is shown below:**
+
+   Word value for cat: 5
+
+   Word value for dog: 5
+
+   Word value for a: 1
+
+   Word value for zoo: 12
+
+   Word value for zzz: 0 (Error: Not enough tiles for word.)
+
+   Word value for cr' 'ate:7
+
+   Word value for smørgasbord:0 (Error: Invalid word.)
+
+   **The first 4 words are completely valid/normal words. They print out a correct score for all of them. The next three words are special cases. The String "zzz" is not a word, but contains 3 zs, which is  more than is present in a normal English ScrabbleSet. Based on this, the method correctly returns 0, as there are three Zs in the String which is greater than the 1 Z available in the Scrabbleset. Next, is the word "cr ate." It is essentially the word crate but with a space (or blank tile) added in the middle. The getWordValue() method correctly identifies the blank tile as having a 0 value while continuing to correctly evalute the points of the other tiles, and therefore correctly returns an value of 7. Finally, the word smørgasbord. It has a non letter character, ø, present in it. Due to this character, the method correctly returns a score of 0.**

@@ -140,13 +140,13 @@ public class ScrabbleSet {
                         tile.setUsed(tile.getUsed() + 1);
                         wordValue += tile.tile.getValue();
                     } else {
-   //                     System.out.println("Error: Not enough tiles for word.");
+                        System.out.println("Error: Not enough tiles for word.");
                         return 0;
                     }
                 }
             }
             if (!found) {
- //               System.out.println("Error: Invalid word.");
+                System.out.println("Error: Invalid word.");
                 return 0;
             }
         }

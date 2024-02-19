@@ -1,57 +1,4 @@
-# SCRABBLESET SPECIFICATIONS
-
-
-
-## Code structure
-- Does the code satisfy all provided specifications?
-
-- Is the code consistently formatted? (Note: For this course, we use the results of the Format Document… command in Visual Studio Code as our correct formatting style.)
-
-- What repeated code is present that could become a single method? (This principle is known as DRY: Don’t repeat yourself.)
-
-- Are there any “magic number” constants that should be redefined as final variables (as in Java; other languages will have a different keyword)?
-
-- Is there any complexity that can be simplified by the use of multiple methods?
-
-## Variables
-- Are all variables (both attributes and other local variables) have reasonable types and identifiers?
-
-- Does each variable have a single purpose in its scope?
-
-- Whenever the code assigns a value to a variable, does the code ensure type consistency? For example, does the code use casting appropriately?
-
-- Are there variables that can be removed from the code because they are redundant or unused?
-
-## Arithmetic operations
-- Are there any places that floating-point numbers are compared for equality? If so, how can those comparisons be rewritten to be more robust?
-
-- Are divisions tested for divide-by-zero?
-
-## Loops and conditional statements
-- Are there any errors in the nesting of loops and conditional statements?
-
-- In an if-else chain or switch statement, are the most common conditions tested first?
-
-- Does each if-else chain or switch statement address all possible cases? (Note the importance of the final else and default blocks.)
-
-- Can readability and robustness be improved by converting an if-else statement to a switch?
-
-- Do loops have proper index initialization statements?
-Are loop termination conditions guaranteed to return true when the program runs?
-
-- Are there statements that can be moved outside of the loop (because they only need to run once) or conditional statement (because they run no matter what the result of the conditional statement is)?
-
-## General programming practice
-- Are indexes tested against array bounds?
-
-- Are all return values assigned and returned correctly?
-
-- Do methods avoid the use of print statements and instead return values?
-
-- Does each statement operate on the correct data?
-
-- Does the code provide reasonable results for a wide range of test cases, especially including any potential edge cases?
-
+# SCRABBLESET CODE REVIEW (all review is in bold text)
 
 ### Attributes
 Allow the object to store the following information:
@@ -148,3 +95,36 @@ Z 10 5
    Word value for smørgasbord:0 (Error: Invalid word.)
 
    **The first 4 words are completely valid/normal words. They print out a correct score for all of them. The next three words are special cases. The String "zzz" is not a word, but contains 3 zs, which is  more than is present in a normal English ScrabbleSet. Based on this, the method correctly returns 0, as there are three Zs in the String which is greater than the 1 Z available in the Scrabbleset. Next, is the word "cr ate." It is essentially the word crate but with a space (or blank tile) added in the middle. The getWordValue() method correctly identifies the blank tile as having a 0 value while continuing to correctly evalute the points of the other tiles, and therefore correctly returns an value of 7. Finally, the word smørgasbord. It has a non letter character, ø, present in it. Due to this character, the method correctly returns a score of 0.**
+
+   ### Other specifications from the checklist
+- What repeated code is present that could become a single method? (This principle is known as DRY: Don’t repeat yourself.)
+
+**In both scrabbleSet() constructors, there is a new line of code that individually adds new tile objects to the scrabbleSet (all 27. so 27 different lines of code). This could be potentially simplified by using a for loop which creates new tile objects based on information stored in different lists (example: a list of ABCDE... and a list of point values) and then adds those tile objects to the scrabbleSet (which would be fewer lines of code and easier to understand)**
+
+- Are there any “magic number” constants that should be redefined as final variables (as in Java; other languages will have a different keyword)?  
+
+**Because each TileInSet object is constructed with a set type and point value which doesn't and shouldn't change according to the specifications, each  could potentially be stored in a final variable. The only thing that would change would be the count of each tile, but that is not part of the TileInSet constructor and therefore would not impact the finality of each TileInSet object created.**
+
+- Are all variables (both attributes and other local variables) have reasonable types and identifiers? Does each variable have a single purpose in its scope? Are there variables that can be removed from the code because they are redundant or unused?
+
+**All variables created for both the ScrabbleSet class and the TileInSet class are used and have reasonable types. For example, the tiles are stored in an ArrayList (could also be stored in arrays or lists) and the "count" and "used" variables in the TileInSet are integer values to track the number of the tiles used and the number of tiles present in the ScrabbleSet. No variables are redundant and each have their own purpose. The only thing unnecessary in the code are two methods defined in the TileInSet class that are never used: getTile() and  and setTile(). While getTile() could be used reasonably, setTile() is overall useless for the purpose of the project because the tile type and point values never change.**
+
+- Are there any errors in the nesting of loops and conditional statements? In an if-else chain or switch statement, are the most common conditions tested first?
+
+**The first for loops and if-else statements show up in the constructors for ScrabbleSet objects. The for loop in the non-random constructor counts up the total number of tiles in the set and the if-else statement evaluates whether it is exactly 100 tiles. This bit of code for this constructor is likely a check and doesn't need to be present in the actual code because if it is a default ScrabbleSet, then the number of tiles will always be 100. However, for the random constructor, the for and if loop serve the same purpose and are actually needed to check if the number of tiles is 100.**
+
+**The next for loops appear in the toString() and getWordValue() methods. The toString() loop just goes through the ScrabbleSet and puts each tile object into a string method with format "type, value, count." The most complex loop appears in the getWordValue() method. First, the used value of each tile is set to 0. Next, a found variable is created which is initially false (if the letter hasn't been found). Then, for each tile in the tiles array, the program evaluates whether that letter is present in the word and if it is, sets found to True. The next if loop after that then checks if the count of the tile exceeds the count present in the ScrabbleSet. For most words, this should not be the case, so the case where the count does not exceed the number present is tested first, while the case where the coutn does exceed is tested next. After that, the case where a character in the word is not found is tested. Because a fewer number of words have non-English characters in the English language, it is accordingly tested last.**
+
+- Can readability and robustness be improved by converting an if-else statement to a switch?
+**For getWordValue(), there could be a switch statement with cases such as word.charAt(i) == tile.tile.getLetter(), tile.getUsed() < tile.getCount(), and !found. For each of these cases, the code associated with them would be what would occur. Therefore, the default case would be "Error: Invalid word."**
+
+- Do methods avoid the use of print statements and instead return values? Are all return values assigned and returned correctly?
+**The two methods of ScrabbleSet both use return statements. toString returns a String object named result while getWordValue returns a integer score called WordValue. For each method this is the most reasonable return type and it is correctly returned, although the toString method could be edited for clarity.**
+
+
+- Does the code provide reasonable results for a wide range of test cases, especially including any potential edge cases?
+**According to the sample output above which tested different words, the code provides reasonable results.**
+
+
+
+
